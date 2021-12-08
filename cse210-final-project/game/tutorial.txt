@@ -1,0 +1,19 @@
+Hello, welcome to our tutorial. We'll first start off with a simple
+
+function to output "Hello World." This is what it looks like
+
+
+print("Hello World")
+
+
+The "print" is built in function for Python. Functions always have 
+
+parameters () to input an argument. Here we are inputting 
+
+"Hello World" as our argument into the parameter.
+
+Because we are printing out a string(text), we want our arugment 
+
+in quotations like in our example above.
+
+Go ahead and give it a shot!

@@ -1,6 +1,7 @@
 import sys
 from game import constants
 import raylibpy
+from game.point import Point
 
 class OutputService:
     """Outputs the game state. The responsibility of the class of objects is to draw the game state on the terminal. 
@@ -25,6 +26,7 @@ class OutputService:
         """
         raylibpy.init_window(constants.MAX_X, constants.MAX_Y, title)
         raylibpy.set_target_fps(constants.FRAME_RATE)
+
         
     def clear_screen(self):
         """Clears the Asciimatics buffer in preparation for the next rendering.
@@ -39,24 +41,25 @@ class OutputService:
         Draws at rectangular box with the provided specifications.
         """
         raylibpy.draw_rectangle(x, y, width, height, raylibpy.RED)
- 
+
 
     def draw_box(self, x, y, width, height):
         """
         Draws at rectangular box with the provided specifications.
         """
         raylibpy.draw_rectangle_lines(x, y, width, height, raylibpy.DARKBLUE)
-
-    def draw_text(self, x, y, text, is_dark_text):
+        
+    def draw_text(self, x, y, text, is_text_big):
         """
         Outputs the provided text at the desired location.
         """
         color = raylibpy.BLACK
+        font_size = constants.DEFAULT_FONT_SIZE
 
-        if is_dark_text:
-            color = raylibpy.BLACK
+        if is_text_big:
+            font_size = constants.BIG_FONT_SIZE
 
-        raylibpy.draw_text(text, x + 5, y + 5, constants.DEFAULT_FONT_SIZE, color)
+        raylibpy.draw_text(text, x + 5, y + 15, font_size, color)
 
     def draw_image(self, x, y, image):
         """
@@ -89,6 +92,12 @@ class OutputService:
         elif actor.has_text():
             text = actor.get_text()
             self.draw_text(x, y, text, True)
+        elif actor.has_list():
+            y_two = 0
+            list = actor.get_list()
+            for line in list:
+                self.draw_text(x, y+y_two, line, False)
+                y_two +=10
         elif width > 0 and height > 0:
             self.draw_box(x, y, width, height)
         

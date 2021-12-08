@@ -27,6 +27,7 @@ class Actor:
         self._width = 0
         self._height = 0
         self._image = ""
+        self._list = []
 
     def get_width(self):
         return self._width
@@ -78,6 +79,9 @@ class Actor:
         """
         return self._text
 
+    def get_list(self):
+        return self._list
+
     def set_text(self, text):
         self._text = text;
 
@@ -123,3 +127,6 @@ class Actor:
 
     def has_image(self):
         return self._image != ""
+
+    def has_list(self):
+        return self._list != []
