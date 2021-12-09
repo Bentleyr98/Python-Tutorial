@@ -29,7 +29,7 @@ class Director:
         
     def start_game(self):
         """Starts the game loop to control the sequence of play."""
-
+        self._cue_action("output")
         while self._keep_playing:
             self._cue_action("input")
             self._cue_action("update")

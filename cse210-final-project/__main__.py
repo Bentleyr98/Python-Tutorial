@@ -25,35 +25,19 @@ def main():
     output_service = OutputService()
     input_service = InputService()
     audio_service = AudioService()
-    user_name = UserName()
-    user_area = UserArea()
+    
 
-    def get_name():
-        get_user_name =" "
-        x = len(get_user_name)
-        while x < 20:
-            output_service.clear_screen()
-            raylibpy.clear_background(raylibpy.WHITE)
-            name_space = "Enter Name: "
-            letter = input_service.get_letter()
-            get_user_name = user_name.add_letter(letter)
-            name = (f"{name_space} {get_user_name}")
-            print(name)
-            output_service.draw_text(245, 250, name, True )
-            #self._audio_service.play_sound(constants.SOUND_OVER)
-            output_service.flush_buffer()
-            output_service.clear_screen()
+    
 
-        raylibpy.clear_background(raylibpy.WHITE)
-        output_service.flush_buffer()
-           
+    # name = return_user_name(get_user_name)
+    # print(f"{name} oh no")
 
     # create the cast {key: tag, value: list}
     cast = {}
 
     cast["user_name"] = []
     user_names = []
-    user_name = UserName("Hello Person")
+    user_name = UserName()
     user_name.set_position(Point(10, -5))
     user_names.append(user_name)
     cast["user_name"] = user_names
@@ -62,6 +46,7 @@ def main():
     users_area = []
     user_area = UserArea("Run your code below")
     user_area.set_position(Point(410,-5))
+
     users_area.append(user_area)
     cast["user_area"] = users_area
 
@@ -110,8 +95,12 @@ def main():
     cast["left_arrow"] = left_arrows
 
 
-    cast[""] = []
-   
+    # cast["user_area"] = []
+    # area = []
+    # user_area = UserArea()
+    # user_area.set_position(Point(380,30))
+    # area.append(user_area)
+    # cast["user_area"] = area
     
 
 
@@ -122,18 +111,22 @@ def main():
     
 
     draw_actors_action = DrawActorsAction(output_service)
+    get_code = user_area.get_code()
+    run_code = user_area.exec_code()
 
 
-    script["input"] = []
-    script["update"] = []
+    script["input"] = [get_code]
+    script["update"] = [run_code]
     script["output"] = [draw_actors_action]
 
 
 
     # Start the game
     output_service.open_window("Python Tutorial")
- 
-    get_name()
+
+    user_name.get_name()
+    print(user_name._user_input)
+    
     output_service.flush_buffer()
     #audio_service.start_audio()
     #audio_service.play_sound(constants.SOUND_START)
