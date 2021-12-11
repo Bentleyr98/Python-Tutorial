@@ -1,4 +1,4 @@
-Hello, welcome to our tutorial. We'll first start off with a simple
+Welcome to our tutorial! We'll first start off with a simple
 
 function to output "Hello World." This is what it looks like
 

@@ -50,4 +50,4 @@ class InputService:
         return raylibpy.is_key_down(raylibpy.KEY_ENTER)
 
     def is_backspaced_pressed(self):
-        return raylibpy.is_key_down(raylibpy.KEY_BACKSPACE)
+        return raylibpy.is_key_pressed(raylibpy.KEY_BACKSPACE)

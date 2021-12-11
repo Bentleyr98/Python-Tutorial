@@ -1,4 +1,3 @@
-#Take input from user to personalize, then set user input as an actor.
 from game.actor import Actor
 from game.input_service import InputService
 from game.output_service import OutputService
@@ -9,8 +8,7 @@ class UserName(Actor):
     
     def __init__(self):
         super().__init__()
-        self._user_input = ""
-        self._text = (f"Hello {self._user_input}")
+        self._text = ""
         self._input_service = InputService()
         self._output_service = OutputService()
 
@@ -21,30 +19,34 @@ class UserName(Actor):
             self (Write): An instance of Write.
             string (letter): The letters to add to string.
         """
-        self._user_input += letter
-        return self._user_input
-
+        self._text += letter
+        return self._text
+      
     
     def remove_last_letter(self):
-        self._user_input = self._user_input.rstrip(self._user_input[:-1])
+        self._text = self._text[:-1]
 
 
     def get_name(self):
         while not self._input_service.is_enter_pressed():
             self._output_service.clear_screen()
             raylibpy.clear_background(raylibpy.WHITE)
-            name_space = "Enter Name: "
+            name_space = "Name(Hit enter when finished): "
             if self._input_service.is_backspaced_pressed():
                 self.remove_last_letter()
             else:
                 letter = self._input_service.get_letter()
                 self.add_letter(letter)
             
-            name = (f"{name_space} {self._user_input}")
-            self._output_service.draw_text(245, 250, name, True )
+            name = (f"{name_space} {self._text}")
+            self._output_service.draw_text(50, 250, name, True )
 
             #self._audio_service.play_sound(constants.SOUND_OVER)
             self._output_service.flush_buffer()
             self._output_service.clear_screen()
         raylibpy.clear_background(raylibpy.WHITE)
         self._output_service.flush_buffer()
+
+
+    def return_name(self):
+        return self._text

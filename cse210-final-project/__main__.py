@@ -6,7 +6,6 @@ import raylibpy
 import random
 from game import constants
 from game.director import Director
-from game.actor import Actor
 from game.point import Point
 from game.draw_actors_action import DrawActorsAction
 from game.input_service import InputService
@@ -19,36 +18,17 @@ from game.trash import Trash
 from game.left_arrow import LeftArrow
 from game.right_arrow import RightArrow
 from game.user_area import UserArea
-
+from game.run_code import RunCode
+from game.get_user_code import GetUserCode
+from game.feedback import Feedback
 
 def main():
     output_service = OutputService()
     input_service = InputService()
     audio_service = AudioService()
-    
-
-    
-
-    # name = return_user_name(get_user_name)
-    # print(f"{name} oh no")
 
     # create the cast {key: tag, value: list}
     cast = {}
-
-    cast["user_name"] = []
-    user_names = []
-    user_name = UserName()
-    user_name.set_position(Point(10, -5))
-    user_names.append(user_name)
-    cast["user_name"] = user_names
-
-    cast["user_area"] = []
-    users_area = []
-    user_area = UserArea("Run your code below")
-    user_area.set_position(Point(410,-5))
-
-    users_area.append(user_area)
-    cast["user_area"] = users_area
 
     cast["instruction"] = []
     text = []
@@ -95,27 +75,15 @@ def main():
     cast["left_arrow"] = left_arrows
 
 
-    # cast["user_area"] = []
-    # area = []
-    # user_area = UserArea()
-    # user_area.set_position(Point(380,30))
-    # area.append(user_area)
-    # cast["user_area"] = area
-    
-
-
     # Create the script {key: tag, value: list}
     script = {}
 
-
+    draw_actors_action = DrawActorsAction(output_service)
+    run_code = RunCode()
+    get_user_code = GetUserCode()
     
 
-    draw_actors_action = DrawActorsAction(output_service)
-    get_code = user_area.get_code()
-    run_code = user_area.exec_code()
-
-
-    script["input"] = [get_code]
+    script["input"] = [get_user_code]
     script["update"] = [run_code]
     script["output"] = [draw_actors_action]
 
@@ -124,8 +92,42 @@ def main():
     # Start the game
     output_service.open_window("Python Tutorial")
 
+    user_name = UserName()
+    cast["user_name"] = []
+    user_names = []
     user_name.get_name()
-    print(user_name._user_input)
+    text = user_name.get_text()
+    user_name.set_text(f"Hello {text}")
+    user_name.set_position(Point(10, -5))
+    user_names.append(user_name)
+    cast["user_name"] = user_names
+
+    cast["user_area"] = []
+    users_area = []
+    user_area = UserArea("Run your code below")
+    user_area.set_position(Point(410,-5))
+    users_area.append(user_area)
+    user_area = UserArea()
+    user_area.set_position(Point(150,315))
+    users_area.append(user_area)
+    cast["user_area"] = users_area
+
+    cast["feedback"] = []
+    feedback_text = []
+    feedback = Feedback("Your Code: ")
+    feedback.set_position(Point(10, 315))
+    feedback_text.append(feedback)
+    feedback_two = Feedback("The Result: ")
+    feedback_two.set_position(Point(10, 440))
+    feedback_text.append(feedback_two)
+    feedback_three = Feedback()
+    feedback_three.set_text("")
+    feedback_three.set_position(Point(160, 440))
+    feedback_text.append(feedback_three)
+    cast["feedback"] = feedback_text
+
+
+
     
     output_service.flush_buffer()
     #audio_service.start_audio()
