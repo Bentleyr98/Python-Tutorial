@@ -17,6 +17,36 @@ class InputService:
         """
         pass
         
+
+    def get_direction(self):
+        """Gets the selected direction based on the currently pressed keys.
+
+        Args:
+            self (InputService): An instance of InputService.
+
+        Returns:
+            Point: The selected direction.
+        """
+        dx = 0
+        dy = 0
+
+        if self.is_left_pressed():
+            dx = -1
+        
+        if self.is_right_pressed():
+            dx = 1
+        
+        if self.is_up_pressed():
+            dy = -1
+        
+        if self.is_down_pressed():
+            dy = 1
+
+        direction = Point(dx, dy)
+        return direction
+
+
+
     def get_letter(self):
         """Collects the user input into a string.
 

@@ -27,6 +27,7 @@ class OutputService:
         raylibpy.init_window(constants.MAX_X, constants.MAX_Y, title)
         raylibpy.set_target_fps(constants.FRAME_RATE)
 
+
         
     def clear_screen(self):
         """Clears the Asciimatics buffer in preparation for the next rendering.
@@ -109,6 +110,7 @@ class OutputService:
         """ 
         for actor in actors:
             self.draw_actor(actor)
+
     
     def flush_buffer(self):
         """Renders the screen.

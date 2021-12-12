@@ -30,7 +30,6 @@ class UserName(Actor):
     def get_name(self):
         while not self._input_service.is_enter_pressed():
             self._output_service.clear_screen()
-            raylibpy.clear_background(raylibpy.WHITE)
             name_space = "Name(Hit enter when finished): "
             if self._input_service.is_backspaced_pressed():
                 self.remove_last_letter()

@@ -1,13 +1,21 @@
 from game.actor import Actor
 from game.input_service import InputService
 from game.output_service import OutputService
+from game.play_code import PlayCodeAction
+from game.audio_service import AudioService
+from game.physics_service import PhysicsService
 
 class UserArea(Actor):
-    def __init__(self, text=""):
+    def __init__(self, cast, text=""):
         super().__init__()
         self._text = text
+        self._cast = cast
         self._input_service = InputService()
         self._output_service = OutputService()
+        self._physics_service = PhysicsService()
+        self._audio_service = AudioService()
+        self._play_code = PlayCodeAction()
+        
 
 
     def add_letter(self, letter):
@@ -37,4 +45,4 @@ class UserArea(Actor):
             self._output_service.draw_text(410, 30, code_space, False)
             self._output_service.draw_text(410, 50, self._text, False)
             #self._audio_service.play_sound(constants.SOUND_OVER)
-            self._output_service.flush_buffer()
+            self._output_service.flush_buffer()    

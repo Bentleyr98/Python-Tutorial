@@ -1,4 +1,5 @@
 from game.point import Point
+from game import constants
 
 class Actor:
     """A visible, moveable thing that participates in the game. The responsibility of Actor is to keep track of its appearance, position 
@@ -27,6 +28,45 @@ class Actor:
         self._height = 0
         self._image = ""
         self._list = []
+
+    def get_velocity(self):
+        """Gets the actor's speed and direction.
+        
+        Args:
+            self (Actor): an instance of Actor.
+
+        Returns:
+            Point: The actor's speed and direction.
+        """
+        return self._velocity
+
+
+    def set_velocity(self, velocity):
+        """Updates the actor's velocity to the given one.
+        
+        Args:
+            self (Actor): An instance of Actor.
+            position (Point): The given velocity.
+        """
+        self._velocity = velocity
+    
+    def move_next(self):
+        """Moves the actor to its next position according to its velocity. Will 
+        wrap the position from one side of the screen to the other when it 
+        reaches the boundary in either direction.
+        
+        Args:
+            self (Actor): an instance of Actor.
+        """
+        x = self._position.get_x()
+        y = self._position.get_y()
+        dx = self._velocity.get_x()
+        dy = self._velocity.get_y()
+        x = (x + dx) % constants.MAX_X
+        y = (y + dy) % constants.MAX_Y
+
+        position = Point(x, y)
+        self._position = position
 
     def get_width(self):
         return self._width

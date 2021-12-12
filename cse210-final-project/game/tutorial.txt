@@ -16,4 +16,4 @@ Because we are printing out a string(text), we want our arugment
 
 in quotations like in our example above.
 
-Go ahead and give it a shot!
+Go ahead and give it a shot and try other short phrases as well!

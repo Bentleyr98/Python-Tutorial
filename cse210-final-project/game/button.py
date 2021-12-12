@@ -10,6 +10,7 @@ class Button():
             self (Actor): an instance of Actor.
         """
         self._position = Point(0, 0)
+        self._velocity = Point(0, 0)
         self._width = 0
         self._height = 0
         self._image = ""
@@ -67,3 +68,25 @@ class Button():
 
     def has_image(self):
         return self._image != ""
+
+
+    def get_velocity(self):
+        """Gets the actor's speed and direction.
+        
+        Args:
+            self (Actor): an instance of Actor.
+
+        Returns:
+            Point: The actor's speed and direction.
+        """
+        return self._velocity
+
+
+    def set_velocity(self, velocity):
+        """Updates the actor's velocity to the given one.
+        
+        Args:
+            self (Actor): An instance of Actor.
+            position (Point): The given velocity.
+        """
+        self._velocity = velocity
