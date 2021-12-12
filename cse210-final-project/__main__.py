@@ -21,11 +21,18 @@ from game.user_area import UserArea
 from game.run_code import RunCode
 from game.get_user_code import GetUserCode
 from game.feedback import Feedback
+from game.mouse import Mouse
+from game.control_actors_action import ControlActorsAction
+from game.move_actors_action import MoveActorsAction
+from game.handle_collisions_action import HandleCollisionsAction
+from game.physics_service import PhysicsService
+from game.python import Python
 
 def main():
     output_service = OutputService()
     input_service = InputService()
     audio_service = AudioService()
+    physics_service = PhysicsService()
 
     # create the cast {key: tag, value: list}
     cast = {}
@@ -46,33 +53,47 @@ def main():
     instructions.append(instruction)
     cast["instruction"] = instructions
 
-    cast["play_button"] = []
-    play_buttons = []
-    play = Play()
-    play.set_position(Point(770, 285))
-    play_buttons.append(play)
-    cast["play_button"] = play_buttons
+    # cast["play_button"] = []
+    # play_buttons = []
+    # play = Play()
+    # play.set_position(Point(770, 285))
+    # play_buttons.append(play)
+    # cast["play_button"] = play_buttons
 
-    cast["trash"] = []
-    trash_cans = []
-    trash = Trash()
-    trash.set_position(Point(770, 570))
-    trash_cans.append(trash)
-    cast["trash"] = trash_cans
+    # cast["mouse"] = []
+    # mice = []
+    # mouse = Mouse()
+    # mouse.set_position(Point(660, 385))
+    # mice.append(mouse)
+    # cast["mouse"] = mice
 
-    cast["right_arrow"] = []
-    right_arrows = []
-    right_arrow = RightArrow()
-    right_arrow.set_position(Point(380,285))
-    right_arrows.append(right_arrow)
-    cast["right_arrow"] = right_arrows
+    # cast["trash"] = []
+    # trash_cans = []
+    # trash = Trash()
+    # trash.set_position(Point(770, 570))
+    # trash_cans.append(trash)
+    # cast["trash"] = trash_cans
 
-    cast["left_arrow"] = []
-    left_arrows = []
-    left_arrow = LeftArrow()
-    left_arrow.set_position(Point(10, 285))
-    left_arrows.append(left_arrow)
-    cast["left_arrow"] = left_arrows
+    # cast["right_arrow"] = []
+    # right_arrows = []
+    # right_arrow = RightArrow()
+    # right_arrow.set_position(Point(380,285))
+    # right_arrows.append(right_arrow)
+    # cast["right_arrow"] = right_arrows
+
+    # cast["left_arrow"] = []
+    # left_arrows = []
+    # left_arrow = LeftArrow()
+    # left_arrow.set_position(Point(10, 285))
+    # left_arrows.append(left_arrow)
+    # cast["left_arrow"] = left_arrows
+
+    cast["python"] = []
+    python_graphics = []
+    python = Python()
+    python.set_position(Point(10, 285))
+    python_graphics.append(python)
+    cast["python"] = python_graphics
 
 
     # Create the script {key: tag, value: list}
@@ -80,7 +101,10 @@ def main():
 
     draw_actors_action = DrawActorsAction(output_service)
     run_code = RunCode()
-    get_user_code = GetUserCode()
+    get_user_code = GetUserCode(cast)
+    control_actors_action = ControlActorsAction(input_service)
+    move_actors_action = MoveActorsAction()
+    #handle_collisions_action = HandleCollisionsAction(audio_service, physics_service)
     
 
     script["input"] = [get_user_code]
@@ -104,10 +128,10 @@ def main():
 
     cast["user_area"] = []
     users_area = []
-    user_area = UserArea("Run your code below")
+    user_area = UserArea(cast, "Run your code below")
     user_area.set_position(Point(410,-5))
     users_area.append(user_area)
-    user_area = UserArea()
+    user_area = UserArea(cast)
     user_area.set_position(Point(150,315))
     users_area.append(user_area)
     cast["user_area"] = users_area
@@ -130,13 +154,13 @@ def main():
 
     
     output_service.flush_buffer()
-    #audio_service.start_audio()
-    #audio_service.play_sound(constants.SOUND_START)
+    audio_service.start_audio()
+    audio_service.play_sound(constants.SOUND_START)
     
     director = Director(cast, script)
     director.start_game()
 
-    #audio_service.stop_audio()
+    audio_service.stop_audio()
 
 if __name__ == "__main__":
     main()
